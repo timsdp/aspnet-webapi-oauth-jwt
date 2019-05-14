@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OAuth.WebAPI.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -7,34 +8,52 @@ using System.Web.Http;
 
 namespace OAuth.WebAPI.Controllers
 {
-    [Authorize]
     public class ValuesController : ApiController
     {
-        // GET api/values
-        public IEnumerable<string> Get()
+        [Authorize(Roles ="user")]
+        [HttpPost]
+        public HttpResponseMessage AuthRoleUser(RequestModel requestModel)
         {
-            return new string[] { "value1", "value2" };
+            return Request.CreateResponse(HttpStatusCode.OK, GetResult(requestModel));
         }
 
-        // GET api/values/5
-        public string Get(int id)
+        [Authorize(Roles = "admin")]
+        [HttpPost]
+        public HttpResponseMessage AuthRoleAdmin(RequestModel requestModel)
         {
-            return "value";
+            return Request.CreateResponse(HttpStatusCode.OK, GetResult(requestModel));
         }
 
-        // POST api/values
-        public void Post([FromBody]string value)
+        [Authorize(Users ="JohnSmith")]
+        [HttpPost]
+        public HttpResponseMessage AuthUserJohnSmith(RequestModel requestModel)
         {
+            return Request.CreateResponse(HttpStatusCode.OK, GetResult(requestModel));
         }
 
-        // PUT api/values/5
-        public void Put(int id, [FromBody]string value)
+        [Authorize(Users = "UserUnknown")]
+        [HttpPost]
+        public HttpResponseMessage AuthUserUnknown(RequestModel requestModel)
         {
+            return Request.CreateResponse(HttpStatusCode.OK, GetResult(requestModel));
         }
 
-        // DELETE api/values/5
-        public void Delete(int id)
+        [AllowAnonymous]
+        [HttpPost]
+        public HttpResponseMessage AuthAnonymous(RequestModel requestModel)
         {
+            return Request.CreateResponse(HttpStatusCode.OK, GetResult(requestModel));
+        }
+
+        private object GetResult(RequestModel requestModel)
+        {
+            return new ResponseModel
+            {
+                Result = requestModel.Text.ToUpper(),
+                Length = requestModel.Text.Length
+            };
         }
     }
+    
+    
 }
