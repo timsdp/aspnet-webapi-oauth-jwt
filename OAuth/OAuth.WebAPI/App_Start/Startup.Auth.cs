@@ -11,6 +11,7 @@
 
     public partial class Startup
     {
+        public const string accessTokenKey = "c2VjcmV0a2V5c3Ryb25ndHlwZQ==";
         public void ConfigureAuthAspNetIdentity(IAppBuilder app)
         {
             app.CreatePerOwinContext(ApplicationDbContext.Create);
@@ -40,7 +41,8 @@
                 Provider = new ApplicationOAuthProvider(publicClientId),
                 AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(60),
                 AllowInsecureHttp = true,
-                AccessTokenFormat = new JwtAccessTokenFormat(TimeSpan.FromMinutes(60), "c2VjcmV0a2V5c3Ryb25ndHlwZQ==")
+                AccessTokenFormat = new JwtAccessTokenFormat(TimeSpan.FromMinutes(60), accessTokenKey),
+                RefreshTokenProvider = new CustomRefreshTokenProvider(),
             };
 
             app.UseOAuthBearerTokens(OAuthOptions);

@@ -2,12 +2,16 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Data.Entity;
     using System.Linq;
     using Microsoft.AspNet.Identity.EntityFramework;
     using OAuth.WebAPI.Auth.Models;
+    using OAuth.WebAPI.Models;
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

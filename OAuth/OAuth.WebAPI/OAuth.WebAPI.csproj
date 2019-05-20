@@ -146,15 +146,28 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Auth\Attributes\ClaimsAuthorize.cs" />
     <Compile Include="Auth\Data\ApplicationDbContext.cs" />
+    <Compile Include="Auth\Data\AuthRepository.cs" />
+    <Compile Include="Auth\Helper.cs" />
     <Compile Include="Auth\Models\ApplicationUser.cs" />
     <Compile Include="Auth\Provider\ApplicationUserManager.cs" />
+    <Compile Include="Auth\Provider\CustomRefreshTokenProvider.cs" />
     <Compile Include="Auth\TokenFormat\JwtAccessTokenFormat.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905132151486_InitialCreate.cs" />
+    <Compile Include="Migrations\201905132151486_InitialCreate.Designer.cs">
+      <DependentUpon>201905132151486_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905200609269_AddRefreshToken.cs" />
+    <Compile Include="Migrations\201905200609269_AddRefreshToken.Designer.cs">
+      <DependentUpon>201905200609269_AddRefreshToken.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\RefreshToken.cs" />
     <Compile Include="Models\RequestModel.cs" />
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -176,6 +189,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201905132151486_InitialCreate.resx">
+      <DependentUpon>201905132151486_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905200609269_AddRefreshToken.resx">
+      <DependentUpon>201905200609269_AddRefreshToken.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
