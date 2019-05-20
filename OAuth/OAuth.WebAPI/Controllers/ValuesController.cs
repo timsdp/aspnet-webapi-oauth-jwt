@@ -1,4 +1,5 @@
-﻿using OAuth.WebAPI.Models;
+﻿using OAuth.WebAPI.Auth.Attributes;
+using OAuth.WebAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +35,20 @@ namespace OAuth.WebAPI.Controllers
         [Authorize(Users = "UserUnknown")]
         [HttpPost]
         public HttpResponseMessage AuthUserUnknown(RequestModel requestModel)
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, GetResult(requestModel));
+        }
+
+        [ClaimsAuthorize(MinAge = 20)]
+        [HttpPost]
+        public HttpResponseMessage AuthAgeClaim20(RequestModel requestModel)
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, GetResult(requestModel));
+        }
+
+        [ClaimsAuthorize(MinAge = 16)]
+        [HttpPost]
+        public HttpResponseMessage AuthAgeClaim16(RequestModel requestModel)
         {
             return Request.CreateResponse(HttpStatusCode.OK, GetResult(requestModel));
         }

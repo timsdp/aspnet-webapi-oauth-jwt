@@ -12,7 +12,7 @@ namespace OAuth.WebAPI
     {
         public void Configuration(IAppBuilder app)
         {
-            ConfigureAuthAspNetIdentity(app);
+            ConfigureAuthCustomImplementation(app);
         }
     }
 }
